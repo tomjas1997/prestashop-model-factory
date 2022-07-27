@@ -1,5 +1,5 @@
 {
-    "name": "tomasj/prestashop-factories",
+    "name": "prestashop/prestashop-factories",
     "description": "Allows creation of Prestashop object models for tests easier. Has Laravel-ish functionality.",
     "type": "library",
     "license": "MIT",

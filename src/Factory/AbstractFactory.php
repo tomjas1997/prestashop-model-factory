@@ -4,7 +4,7 @@ namespace PrestashopFactories\Factory;
 
 use DusanKasan\Knapsack\Collection;
 
-class AbstractFactory
+abstract class AbstractFactory
 {
     /** @var \Faker\Generator */
     protected $faker;
