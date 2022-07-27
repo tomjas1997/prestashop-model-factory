@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PrestashopFactories": "src/"
+            "PrestashopFactories\\": "src/"
         }
     },
     "require": {}
