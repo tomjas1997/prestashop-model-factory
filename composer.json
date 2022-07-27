@@ -9,7 +9,7 @@
             "email": "tomis.jasulaitis@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.6.0",
         "fakerphp/faker": "1.9.2",
