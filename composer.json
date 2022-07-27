@@ -17,6 +17,5 @@
         "psr-4": {
             "PrestashopFactories\\": "src/"
         }
-    },
-    "require": {}
+    }
 }
