@@ -111,7 +111,7 @@ abstract class AbstractFactory
             $this->store(Collection::from([$results]));
 
             $this->callAfterCreating(Collection::from(([$results])));
-        }  else {
+        } else {
             $this->store($results);
 
             $this->callAfterCreating($results);
@@ -195,7 +195,7 @@ abstract class AbstractFactory
     public function count($count)
     {
         return $this->newInstance([
-            'count' => $count
+            'count' => $count,
         ]);
     }
 
@@ -257,6 +257,6 @@ abstract class AbstractFactory
             if ($callback instanceof \Closure) {
                 $callback($model);
             }
-        });
+        })->realize();
     }
 }
