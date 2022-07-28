@@ -36,7 +36,7 @@ abstract class GeneratorCommand extends Command
      *
      * @return string
      */
-    public function getTestsNamespace()
+    public function getTestsAutoloadNamespace()
     {
         $composer = json_decode(file_get_contents($this->getNamespace() . '/composer.json'), true);
 
@@ -62,13 +62,6 @@ abstract class GeneratorCommand extends Command
     protected function makeDirectory($path)
     {
         @mkdir($path, 0777, true);
-    }
-
-    protected function getClassBasename($class)
-    {
-        $class = is_object($class) ? get_class($class) : $class;
-
-        return basename(str_replace('\\', '/', $class));
     }
 
     public function readStub()

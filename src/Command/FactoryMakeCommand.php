@@ -42,7 +42,7 @@ class FactoryMakeCommand extends GeneratorCommand
     {
         $io = new SymfonyStyle($input, $output);
 
-        $testsNamespace = $this->getTestsNamespace();
+        $testsNamespace = $this->getTestsAutoloadNamespace();
 
         if (empty($testsNamespace)) {
             $io->error('composer.json must have autoload-dev configuration for tests/ folder.');
@@ -86,7 +86,7 @@ class FactoryMakeCommand extends GeneratorCommand
 
         $model = basename(str_replace('\\', '/', $modelNamespace));
 
-        $namespace = $this->getTestsNamespace().'Factories\Entities';
+        $namespace = $this->getTestsAutoloadNamespace().'Factories\Entities';
 
         $replace = [
             '{{ factoryNamespace }}' => $namespace,
