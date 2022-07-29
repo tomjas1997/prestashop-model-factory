@@ -1,12 +1,12 @@
 {
-    "name": "prestashop/prestashop-factories",
+    "name": "invertus/prestashop-models",
     "description": "Allows creation of Prestashop object models for tests easier. Has Laravel-ish functionality.",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "tomasj",
-            "email": "tomis.jasulaitis@gmail.com"
+            "name": "Tomas Jasulaitis",
+            "email": "tomas.jasulaitis@invertus.eu"
         }
     ],
     "minimum-stability": "stable",
@@ -18,11 +18,11 @@
         "symfony/console": "3.4.47"
     },
     "bin": [
-        "bin/prestashop-factories"
+        "bin/prestashop-models"
     ],
     "autoload": {
         "psr-4": {
-            "PrestashopFactories\\": "src/"
+            "PrestashopModels\\": "src/"
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace PrestashopFactories\Command;
+namespace PrestashopModels\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -39,10 +39,6 @@ abstract class GeneratorCommand extends Command
     public function getTestsAutoloadNamespace()
     {
         $composer = json_decode(file_get_contents($this->getNamespace() . '/composer.json'), true);
-
-        if (empty($composer['autoload-dev'])) {
-            return '';
-        }
 
         if (empty($composer['autoload-dev']['psr-4'])) {
             return '';

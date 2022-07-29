@@ -1,6 +1,6 @@
 <?php
 
-namespace PrestashopFactories\Command;
+namespace PrestashopModels\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -42,18 +42,10 @@ class FactoryMakeCommand extends GeneratorCommand
     {
         $io = new SymfonyStyle($input, $output);
 
-        $testsNamespace = $this->getTestsAutoloadNamespace();
-
-        if (empty($testsNamespace)) {
-            $io->error('composer.json must have autoload-dev configuration for tests/ folder.');
-
-            return false;
-        }
-
         $factoryName = $input->getArgument('factoryName');
         $modelNamespace = $input->getOption('model');
 
-        $path = $this->getNamespace().DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'Factories'.DIRECTORY_SEPARATOR.'Entities';
+        $path = $this->getNamespace().DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'Factories'.DIRECTORY_SEPARATOR.'Models';
 
         $factoryPath = $path.DIRECTORY_SEPARATOR.$factoryName.'.php';
 
@@ -86,7 +78,13 @@ class FactoryMakeCommand extends GeneratorCommand
 
         $model = basename(str_replace('\\', '/', $modelNamespace));
 
-        $namespace = $this->getTestsAutoloadNamespace().'Factories\Entities';
+        //TODO guess model namespace if class exists from factory name.
+
+        if (!empty($autoloadNamespace = $this->getTestsAutoloadNamespace())) {
+            $namespace = $autoloadNamespace.'Factories\Models';
+        } else {
+            $namespace = 'Tests\Factories\Models';
+        }
 
         $replace = [
             '{{ factoryNamespace }}' => $namespace,

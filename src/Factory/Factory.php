@@ -1,10 +1,10 @@
 <?php
 
-namespace PrestashopFactories\Factory;
+namespace PrestashopModels\Factory;
 
 use DusanKasan\Knapsack\Collection;
 
-abstract class AbstractFactory
+abstract class Factory
 {
     /** @var \Faker\Generator */
     protected $faker;
