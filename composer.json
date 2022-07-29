@@ -22,7 +22,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "PrestashopModels\\": "src/"
+            "Invertus\\Prestashop\\Models\\": "src/"
         }
     }
 }

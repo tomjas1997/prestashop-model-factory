@@ -1,6 +1,6 @@
 <?php
 
-namespace PrestashopModels\Factory;
+namespace Invertus\Prestashop\Models\Command;
 
 use DusanKasan\Knapsack\Collection;
 
