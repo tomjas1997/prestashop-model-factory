@@ -1,6 +1,6 @@
 {
     "name": "invertus/prestashop-models",
-    "description": "Allows creation of Prestashop object models for tests easier. Has Laravel-ish functionality.",
+    "description": "This package provides ability to test your database driven applications. Model factories make it easier to create test database records using Prestashop models.",
     "type": "library",
     "license": "MIT",
     "authors": [
