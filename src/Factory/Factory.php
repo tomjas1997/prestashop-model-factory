@@ -1,10 +1,10 @@
 <?php
 
-namespace PrestashopFactories\Factory;
+namespace Invertus\Prestashop\Models\Factory;
 
 use DusanKasan\Knapsack\Collection;
 
-abstract class AbstractFactory
+abstract class Factory
 {
     /** @var \Faker\Generator */
     protected $faker;
@@ -92,11 +92,6 @@ abstract class AbstractFactory
         return $instances;
     }
 
-    protected function getRawAttributes()
-    {
-        return array_merge($this->definition(), $this->state);
-    }
-
     /**
      * Create a collection of models and persist them to the database.
      *
@@ -146,14 +141,6 @@ abstract class AbstractFactory
     }
 
     /**
-     * @return \ObjectModel
-     */
-    public function newModel()
-    {
-        return new $this->model();
-    }
-
-    /**
      * Expand all attributes to their underlying values.
      *
      * @param  array  $definition
@@ -174,6 +161,19 @@ abstract class AbstractFactory
 
             return $attribute;
         })->toArray();
+    }
+
+    protected function getRawAttributes()
+    {
+        return array_merge($this->definition(), $this->state);
+    }
+
+    /**
+     * @return \ObjectModel
+     */
+    public function newModel()
+    {
+        return new $this->model();
     }
 
     /**
@@ -258,5 +258,10 @@ abstract class AbstractFactory
                 $callback($model);
             }
         })->realize();
+    }
+
+    protected function withFaker($faker)
+    {
+        $this->faker = $faker;
     }
 }
