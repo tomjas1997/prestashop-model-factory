@@ -2,6 +2,14 @@
 
 This package provides ability to test your database driven applications. Model factories make it easier to create test database records using Prestashop models. 
 
+## Installation
+
+Require this package with composer. It is recommended to only require the package for development.
+
+```shell
+composer require invertus/prestashop-models --dev
+```
+
 ## Defining Model Factories
 
 ### Concept Overview
