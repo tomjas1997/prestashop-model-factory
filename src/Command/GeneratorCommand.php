@@ -31,30 +31,6 @@ abstract class GeneratorCommand extends Command
         return $this->namespace;
     }
 
-    /**
-     * Get the tests autoload configuration namespace.
-     *
-     * @return string
-     */
-    public function getTestsAutoloadNamespace()
-    {
-        $composer = json_decode(file_get_contents($this->getNamespace() . '/composer.json'), true);
-
-        if (empty($composer['autoload-dev']['psr-4'])) {
-            return '';
-        }
-
-        foreach ($composer['autoload-dev']['psr-4'] as $namespace => $path) {
-            if ($path !== 'tests/') {
-                continue;
-            }
-
-            return $namespace;
-        }
-
-        return '';
-    }
-
     protected function makeDirectory($path)
     {
         @mkdir($path, 0777, true);

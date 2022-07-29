@@ -9,5 +9,5 @@ $application = new Application();
 
 $namespace = realpath(__DIR__ . '/../../../../');
 
-$application->add(new \PrestashopModels\Command\FactoryMakeCommand($namespace));
+$application->add(new \Invertus\Prestashop\Models\Command\FactoryMakeCommand($namespace));
 $application->run();

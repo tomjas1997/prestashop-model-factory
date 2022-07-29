@@ -2,6 +2,7 @@
 
 namespace Invertus\Prestashop\Models\Command;
 
+use Invertus\Prestashop\Models\Helpers\NamespaceHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,11 +58,6 @@ class FactoryMakeCommand extends GeneratorCommand
 
         $this->makeDirectory($path);
 
-        if (empty($modelNamespace)) {
-            //NOTE defaulting if no model was passed.
-            $modelNamespace = '\ObjectModel';
-        }
-
         file_put_contents($factoryPath, $this->buildClass(
             $factoryName,
             $modelNamespace
@@ -78,9 +74,11 @@ class FactoryMakeCommand extends GeneratorCommand
 
         $model = basename(str_replace('\\', '/', $modelNamespace));
 
-        //TODO guess model namespace if class exists from factory name.
+        if (!class_exists($model)) {
+            $model = $this->decideModelName($factoryName);
+        }
 
-        if (!empty($autoloadNamespace = $this->getTestsAutoloadNamespace())) {
+        if (!empty($autoloadNamespace = NamespaceHelper::getTestsAutoloadNamespaceFromComposer($this->getNamespace()))) {
             $namespace = $autoloadNamespace.'Factories\Models';
         } else {
             $namespace = 'Tests\Factories\Models';
@@ -96,5 +94,16 @@ class FactoryMakeCommand extends GeneratorCommand
         return str_replace(
             array_keys($replace), array_values($replace), $this->readStub()
         );
+    }
+
+    protected function decideModelName($factoryName)
+    {
+        $modelName = ucfirst(strtolower(str_replace('Factory', '', $factoryName)));
+
+        if (class_exists('\\' . $modelName)) {
+            return $modelName;
+        }
+
+        return 'ObjectModel';
     }
 }

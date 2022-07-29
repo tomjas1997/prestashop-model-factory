@@ -92,11 +92,6 @@ abstract class Factory
         return $instances;
     }
 
-    protected function getRawAttributes()
-    {
-        return array_merge($this->definition(), $this->state);
-    }
-
     /**
      * Create a collection of models and persist them to the database.
      *
@@ -146,14 +141,6 @@ abstract class Factory
     }
 
     /**
-     * @return \ObjectModel
-     */
-    public function newModel()
-    {
-        return new $this->model();
-    }
-
-    /**
      * Expand all attributes to their underlying values.
      *
      * @param  array  $definition
@@ -174,6 +161,19 @@ abstract class Factory
 
             return $attribute;
         })->toArray();
+    }
+
+    protected function getRawAttributes()
+    {
+        return array_merge($this->definition(), $this->state);
+    }
+
+    /**
+     * @return \ObjectModel
+     */
+    public function newModel()
+    {
+        return new $this->model();
     }
 
     /**
@@ -258,5 +258,10 @@ abstract class Factory
                 $callback($model);
             }
         })->realize();
+    }
+
+    protected function withFaker($faker)
+    {
+        $this->faker = $faker;
     }
 }

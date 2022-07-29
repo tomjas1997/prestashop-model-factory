@@ -2,10 +2,10 @@
 
 namespace {{ factoryNamespace }};
 
-use PrestashopFactories\Factory\AbstractFactory;
+use Invertus\Prestashop\Models\Factory\Factory;
 use {{ namespacedModel }};
 
-class {{ factory }}Factory extends AbstractFactory
+class {{ factory }}Factory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
