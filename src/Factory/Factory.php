@@ -37,7 +37,7 @@ abstract class Factory
         $this->state = $state ?: [];
         $this->afterMaking = $afterMaking;
         $this->afterCreating = $afterCreating;
-        $this->faker = \Faker\Factory::create();
+        $this->faker = $this->withFaker();
     }
 
     /**
@@ -260,8 +260,8 @@ abstract class Factory
         })->realize();
     }
 
-    protected function withFaker($faker)
+    protected function withFaker()
     {
-        $this->faker = $faker;
+        return \Faker\Factory::create();
     }
 }

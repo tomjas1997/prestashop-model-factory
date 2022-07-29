@@ -48,7 +48,7 @@ As you can see, in their most basic form, factories are classes that extend this
 
 Via the `faker` property, factories have access to the [Faker](https://github.com/FakerPHP/Faker) PHP library, which allows you to conveniently generate various kinds of random data for testing.
 
-> {tip} You can override faker by creating your custom factory and calling $this->withFaker($faker).
+> {tip} You can override faker by overriding withFaker() function in Factory class.
 
 ### Generating Factories
 
