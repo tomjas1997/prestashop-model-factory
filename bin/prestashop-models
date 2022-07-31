@@ -1,26 +1,18 @@
 #!/usr/bin/env php
 <?php
 
-$autoload = null;
-
-$autoloadFiles = [
-    __DIR__ . '/../vendor/autoload.php',
-    __DIR__ . '/../../../autoload.php'
-];
-
-foreach ($autoloadFiles as $autoloadFile) {
-    if (file_exists($autoloadFile)) {
-        $autoload = $autoloadFile;
-        break;
-    }
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
 }
 
-if (! $autoload) {
-    echo "Autoload file not found; try 'composer dump-autoload' first." . PHP_EOL;
-    exit(1);
+if (file_exists(__DIR__ . '/../../../autoload.php')) {
+    require_once __DIR__ . '/../../../autoload.php';
 }
 
-require_once $autoload;
+if (file_exists(__DIR__ . '/../../../../../../autoload.php')) {
+    require_once __DIR__ . '/../../../../../../autoload.php';
+    require_once __DIR__ . '/../../../../../../config/config.inc.php';
+}
 
 use Symfony\Component\Console\Application;
 
