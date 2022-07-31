@@ -58,6 +58,16 @@ class FactoryMakeCommand extends GeneratorCommand
 
         $this->makeDirectory($path);
 
+        if (empty($modelNamespace)) {
+            $io->note('Model was not passed, deciding model from factory name.');
+        }
+
+        if (!empty($modelNamespace) && !class_exists($modelNamespace)) {
+            $io->error('Model namespace passed does not exist');
+
+            return false;
+        }
+
         file_put_contents($factoryPath, $this->buildClass(
             $factoryName,
             $modelNamespace
@@ -74,8 +84,9 @@ class FactoryMakeCommand extends GeneratorCommand
 
         $model = basename(str_replace('\\', '/', $modelNamespace));
 
-        if (!class_exists($model)) {
-            $model = $this->decideModelName($factoryName);
+        if (empty($modelNamespace)) {
+            $model = $this->decideModelNameFromFactory($factoryName);
+            $modelNamespace = $model; //NOTE: Object models do not have namespaces so we can just pass model name.
         }
 
         if (!empty($autoloadNamespace = NamespaceHelper::getTestsAutoloadNamespaceFromComposer($this->getNamespace()))) {
@@ -96,11 +107,11 @@ class FactoryMakeCommand extends GeneratorCommand
         );
     }
 
-    protected function decideModelName($factoryName)
+    protected function decideModelNameFromFactory($factoryName)
     {
         $modelName = ucfirst(strtolower(str_replace('Factory', '', $factoryName)));
 
-        if (class_exists('\\' . $modelName)) {
+        if (class_exists($modelName)) {
             return $modelName;
         }
 
