@@ -78,16 +78,15 @@ class FactoryMakeCommand extends GeneratorCommand
         return true;
     }
 
-    protected function buildClass($factoryName, $modelNamespace)
+    protected function buildClass($factoryName, $optionNamespace)
     {
-        $factory = ucfirst(strtolower(str_replace('Factory', '', $factoryName)));
+        $factory = basename(str_replace('Factory', '', $factoryName));
 
-        $model = basename(str_replace('\\', '/', $modelNamespace));
+        $namespaceModel = !empty($optionNamespace)
+            ? $this->qualifyModel($optionNamespace)
+            : $this->qualifyModel($this->guessModelName($factoryName));
 
-        if (empty($modelNamespace)) {
-            $model = $this->decideModelNameFromFactory($factoryName);
-            $modelNamespace = $model; //NOTE: Object models do not have namespaces so we can just pass model name.
-        }
+        $model = basename(str_replace('\\', '/', $namespaceModel));
 
         if (!empty($autoloadNamespace = NamespaceHelper::getTestsAutoloadNamespaceFromComposer($this->getNamespace()))) {
             $namespace = $autoloadNamespace.'Factories\Models';
@@ -97,8 +96,8 @@ class FactoryMakeCommand extends GeneratorCommand
 
         $replace = [
             '{{ factoryNamespace }}' => $namespace,
-            '{{ namespacedModel }}' => $modelNamespace,
-            '{{ factory }}' => $factory,
+            '{{ namespacedModel }}' => $namespaceModel,
+            '{{ factory }}' => $model,
             '{{ model }}' => $model
         ];
 
@@ -107,14 +106,19 @@ class FactoryMakeCommand extends GeneratorCommand
         );
     }
 
-    protected function decideModelNameFromFactory($factoryName)
+    protected function guessModelName($factoryName)
     {
-        $modelName = ucfirst(strtolower(str_replace('Factory', '', $factoryName)));
+        $modelName = basename(str_replace('Factory', '', $factoryName));
 
         if (class_exists($modelName)) {
             return $modelName;
         }
 
         return 'ObjectModel';
+    }
+
+    protected function qualifyModel($model)
+    {
+        return str_replace('/', '\\', ltrim($model, '\\/'));
     }
 }
