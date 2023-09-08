@@ -2,7 +2,7 @@
 
 namespace Invertus\Prestashop\Models\Factory;
 
-use DusanKasan\Knapsack\Collection;
+use Invertus\Knapsack\Collection;
 
 abstract class Factory
 {
